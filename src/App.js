@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
 function App() {
+  const [mystring, setMyString] = useState("");
+  const [result, setResult] = useState("");
+
+  function firstUniqChar(e) {
+    e.preventDefault();
+    for (let i = 0; i < mystring.length; i++) {
+      if (mystring.indexOf(mystring[i]) === mystring.lastIndexOf(mystring[i])) {
+        return i;
+      }
+    }
+    return null;
+  }
+
+  window.onscroll = function (e) {
+    // called when the window is scrolled.
+    console.log(e);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <form onSubmit={(e) => setResult(firstUniqChar(e))}>
+      <input type="text" onChange={(e) => setMyString(e.target.value)} />
+      <button type="submit">Submit</button>
+      <p>{result}</p>
+    </form>
   );
 }
 
